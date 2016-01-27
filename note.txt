@@ -1,0 +1,2 @@
+scrapedata(strust + dojo + hibernate): view du lieu
+ScrapeSelenium(Selenium) : crawl du lieu

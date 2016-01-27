@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://login.ho.fpt.vn/fpter?wsdl" uri="src/conf/xml-resources/web-services/LoginFPT/wsdl/login.ho.fpt.vn/fpter.wsdl"/>
+</catalog>

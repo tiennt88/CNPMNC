@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://struts.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <!--[ TienNT says: Core definitions -->
+    <definition name="mbase.definition" template="/WEB-INF/mobile/mindex.jsp">
+        <put-attribute name="mbody" value=""/>
+    </definition>
+
+    <!--[ TienNT says: RDWF-used definitions -->
+    <definition name="mindex.page" extends="mbase.definition" >
+        <put-attribute name="mbody" value="/WEB-INF/mobile/homepage.jsp"/>
+    </definition>
+
+</tiles-definitions>

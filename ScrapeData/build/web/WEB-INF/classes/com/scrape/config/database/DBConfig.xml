@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ConfigDBC>
+    <Session-factory>
+        <name>default session</name>
+        <url>/com/scrape/config/database/hibernate.cfg.xml</url>
+    </Session-factory>
+      
+    <Session-factory>
+        <name>db2</name>
+        <url>/com/scrape/config/database/hibernate.cfg_1.xml</url>
+    </Session-factory>
+
+</ConfigDBC>

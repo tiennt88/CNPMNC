@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://struts.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <!--[ TienNT says: Core definitions -->
+    <definition name="base.definition" template="/WEB-INF/jsp/pages/layout/index.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/pages/layout/menubar.jsp"/>
+        <put-attribute name="body" value=""/>
+    </definition>
+
+    <definition name="body.definition" template="/WEB-INF/jsp/pages/layout/bodyLayout.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="type" value="default"/>
+    </definition>
+
+    <definition name="content.definition" template="/WEB-INF/jsp/pages/layout/contentLayout.jsp">
+    </definition>
+
+    <definition name="popup.definition" template="/WEB-INF/jsp/pages/layout/popup.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="body" value=""/>
+    </definition>
+    <!--] -->
+
+    <!--[ TienNT says: definitions -->
+    <definition name="index.page" extends="base.definition" >
+        <put-attribute name="title" value="HomePage"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/pages/layout/homepage.jsp"/>
+    </definition>
+
+    <definition name="login.page" template="/WEB-INF/jsp/pages/layout/login.jsp"/>
+
+    <definition name="loginError.page" template="/WEB-INF/jsp/pages/layout/error.jsp"/>
+
+
+    <definition name="download.page" extends="content.definition">
+        <put-attribute name="body" value="/WEB-INF/jsp/common/download.jsp" />
+    </definition>
+
+    <definition name="upload.page" extends="popup.definition">
+        <put-attribute name="title" value="Upload File" />
+        <put-attribute name="body" value="/WEB-INF/jsp/common/upload.jsp" />
+    </definition>
+
+<!--begin tool-->
+    <definition name="scrapeData.page" extends="body.definition">
+        <put-attribute name="title" value="Lấy dữ liệu" />
+        <put-attribute name="body" value="/WEB-INF/jsp/util/scrapeData.jsp" />
+    </definition>
+
+    <definition name="statisticData.page" extends="body.definition">
+        <put-attribute name="title" value="Thống kê dữ liệu" />
+        <put-attribute name="body" value="/WEB-INF/jsp/util/statisticData.jsp" />
+    </definition>
+
+    <definition name="webData.page" extends="body.definition">
+        <put-attribute name="title" value="Cấu hình Web lấy dữ liệu" />
+        <put-attribute name="body" value="/WEB-INF/jsp/util/webData.jsp" />
+    </definition>
+
+    <definition name="config.page" extends="body.definition">
+        <put-attribute name="title" value="Cấu hình tham số combobox" />
+        <put-attribute name="body" value="/WEB-INF/jsp/util/config.jsp" />
+    </definition>
+
+    <definition name="pattern.page" extends="body.definition">
+        <put-attribute name="title" value="Cấu hình tham số pattern" />
+        <put-attribute name="body" value="/WEB-INF/jsp/util/pattern.jsp" />
+    </definition>
+<!--end tool-->
+
+<!--begin admin-->
+    <definition name="user.page" extends="body.definition">
+        <put-attribute name="title" value="Danh mục User" />
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/user.jsp" />
+    </definition>
+
+    <definition name="userPopup.page" extends="popup.definition">
+        <put-attribute name="title" value="Thông tin user" />
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/userPopup.jsp" />
+    </definition>
+
+    <definition name="role.page" extends="body.definition">
+        <put-attribute name="title" value="Danh mục Role" />
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/role.jsp" />
+    </definition>
+
+    <definition name="roleUserPopUp.page" extends="popup.definition">
+        <put-attribute name="title" value="Thông tin Role map User" />
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/RoleUser.jsp" />
+    </definition>
+
+    <definition name="roleMenuPopUp.page" extends="popup.definition">
+        <put-attribute name="title" value="Thông tin Role map Menu" />
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/RoleMenu.jsp" />
+    </definition>
+
+    <definition name="menu.page" extends="body.definition">
+        <put-attribute name="title" value="Danh mục Menu" />
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/menu.jsp" />
+    </definition>
+
+<!--end admin-->
+
+<!--begin mobile-->
+    <definition name="mobileRoot.page" extends="body.definition">
+        <put-attribute name="title" value="Dữ liệu Mobile FPT" />
+        <put-attribute name="body" value="/WEB-INF/jsp/mobile/mobileRoot.jsp" />
+    </definition>
+
+    <definition name="mobileData.page" extends="body.definition">
+        <put-attribute name="title" value="Dữ liệu Mobile Data Crawl" />
+        <put-attribute name="body" value="/WEB-INF/jsp/mobile/mobileData.jsp" />
+    </definition>
+
+    <definition name="mobileCompare.page" extends="body.definition">
+        <put-attribute name="title" value="Tra Cứu Thông Tin Mobile" />
+        <put-attribute name="body" value="/WEB-INF/jsp/mobile/mobileCompare.jsp" />
+    </definition>
+
+    <definition name="mobileComparePopUp.page" extends="popup.definition">
+        <put-attribute name="title" value="Tra Cứu Thông Tin Mobile" />
+        <put-attribute name="body" value="/WEB-INF/jsp/mobile/mobileComparePopUp.jsp" />
+    </definition>
+
+    <definition name="mobileModelCompare.page" extends="body.definition">
+        <put-attribute name="title" value="So sánh Model (Báo cáo model mình có đối thủ không có và ngược lại)" />
+        <put-attribute name="body" value="/WEB-INF/jsp/mobile/mobileModelCompare.jsp" />
+    </definition>
+
+    <definition name="mobilePriceHistory.page" extends="body.definition">
+        <put-attribute name="title" value="Tra cứu lịch sử giá" />
+        <put-attribute name="body" value="/WEB-INF/jsp/mobile/mobilePriceHistory.jsp" />
+    </definition>
+
+    <definition name="mobileModelNew.page" extends="body.definition">
+        <put-attribute name="title" value="Báo cáo Model mới" />
+        <put-attribute name="body" value="/WEB-INF/jsp/mobile/mobileModelNew.jsp" />
+    </definition>
+
+    <definition name="mobileReport.page" extends="body.definition">
+        <put-attribute name="title" value="Báo cáo Mobile" />
+        <put-attribute name="body" value="/WEB-INF/jsp/mobile/mobileReport.jsp" />
+    </definition>
+
+    <definition name="mobileSegmentation.page" extends="body.definition">
+        <put-attribute name="title" value="Tra cứu mobile theo phân khúc" />
+        <put-attribute name="body" value="/WEB-INF/jsp/mobile/mobileSegmentation.jsp" />
+    </definition>
+    
+    <definition name="mobilePriceDifferentLevels.page" extends="body.definition">
+        <put-attribute name="title" value="Tra cứu chênh lệch tỉ giá" />
+        <put-attribute name="body" value="/WEB-INF/jsp/mobile/mobilePriceDifferentLevels.jsp" />
+    </definition>
+
+    <definition name="mobilePriceDifferentLevelPopUp.page" extends="popup.definition">
+        <put-attribute name="title" value="Chi tiết chênh lệch tỉ giá" />
+        <put-attribute name="body" value="/WEB-INF/jsp/mobile/mobilePriceDifferentLevelPopUp.jsp" />
+    </definition>
+<!--    end mobile-->
+<!--    tablet-->
+    <definition name="tabletRoot.page" extends="body.definition">
+        <put-attribute name="title" value="Dữ liệu tablet FPT" />
+        <put-attribute name="body" value="/WEB-INF/jsp/tablet/tabletRoot.jsp" />
+    </definition>
+
+    <definition name="tabletData.page" extends="body.definition">
+        <put-attribute name="title" value="Dữ liệu tablet Data Crawl" />
+        <put-attribute name="body" value="/WEB-INF/jsp/tablet/tabletData.jsp" />
+    </definition>
+
+    <definition name="tabletCompare.page" extends="body.definition">
+        <put-attribute name="title" value="Tra Cứu Thông Tin tablet" />
+        <put-attribute name="body" value="/WEB-INF/jsp/tablet/tabletCompare.jsp" />
+    </definition>
+
+    <definition name="tabletComparePopUp.page" extends="popup.definition">
+        <put-attribute name="title" value="Tra Cứu Thông Tin tablet" />
+        <put-attribute name="body" value="/WEB-INF/jsp/tablet/tabletComparePopUp.jsp" />
+    </definition>
+
+    <definition name="tabletModelCompare.page" extends="body.definition">
+        <put-attribute name="title" value="So sánh Model (Báo cáo model mình có đối thủ không có và ngược lại)" />
+        <put-attribute name="body" value="/WEB-INF/jsp/tablet/tabletModelCompare.jsp" />
+    </definition>
+
+    <definition name="tabletPriceHistory.page" extends="body.definition">
+        <put-attribute name="title" value="Tra cứu lịch sử giá" />
+        <put-attribute name="body" value="/WEB-INF/jsp/tablet/tabletPriceHistory.jsp" />
+    </definition>
+
+    <definition name="tabletModelNew.page" extends="body.definition">
+        <put-attribute name="title" value="Báo cáo Model mới" />
+        <put-attribute name="body" value="/WEB-INF/jsp/tablet/tabletModelNew.jsp" />
+    </definition>
+
+    <definition name="tabletReport.page" extends="body.definition">
+        <put-attribute name="title" value="Báo cáo tablet" />
+        <put-attribute name="body" value="/WEB-INF/jsp/tablet/tabletReport.jsp" />
+    </definition>
+
+    <definition name="tabletSegmentation.page" extends="body.definition">
+        <put-attribute name="title" value="Tra cứu tablet theo phân khúc" />
+        <put-attribute name="body" value="/WEB-INF/jsp/tablet/tabletSegmentation.jsp" />
+    </definition>
+
+    <definition name="tabletPriceDifferentLevels.page" extends="body.definition">
+        <put-attribute name="title" value="Tra cứu chênh lệch tỉ giá" />
+        <put-attribute name="body" value="/WEB-INF/jsp/tablet/tabletPriceDifferentLevels.jsp" />
+    </definition>
+
+    <definition name="tabletPriceDifferentLevelPopUp.page" extends="popup.definition">
+        <put-attribute name="title" value="Chi tiết chênh lệch tỉ giá" />
+        <put-attribute name="body" value="/WEB-INF/jsp/tablet/tabletPriceDifferentLevelPopUp.jsp" />
+    </definition>
+<!--end tablet-->
+<!--begin laptop-->
+    <definition name="laptopRoot.page" extends="body.definition">
+        <put-attribute name="title" value="Dữ liệu laptop FPT" />
+        <put-attribute name="body" value="/WEB-INF/jsp/laptop/laptopRoot.jsp" />
+    </definition>
+
+    <definition name="laptopData.page" extends="body.definition">
+        <put-attribute name="title" value="Dữ liệu laptop Data Crawl" />
+        <put-attribute name="body" value="/WEB-INF/jsp/laptop/laptopData.jsp" />
+    </definition>
+
+    <definition name="laptopCompare.page" extends="body.definition">
+        <put-attribute name="title" value="Tra Cứu Thông Tin laptop" />
+        <put-attribute name="body" value="/WEB-INF/jsp/laptop/laptopCompare.jsp" />
+    </definition>
+
+    <definition name="laptopComparePopUp.page" extends="popup.definition">
+        <put-attribute name="title" value="Tra Cứu Thông Tin laptop" />
+        <put-attribute name="body" value="/WEB-INF/jsp/laptop/laptopComparePopUp.jsp" />
+    </definition>
+
+    <definition name="laptopModelCompare.page" extends="body.definition">
+        <put-attribute name="title" value="So sánh Model (Báo cáo model mình có đối thủ không có và ngược lại)" />
+        <put-attribute name="body" value="/WEB-INF/jsp/laptop/laptopModelCompare.jsp" />
+    </definition>
+
+    <definition name="laptopPriceHistory.page" extends="body.definition">
+        <put-attribute name="title" value="Tra cứu lịch sử giá" />
+        <put-attribute name="body" value="/WEB-INF/jsp/laptop/laptopPriceHistory.jsp" />
+    </definition>
+
+    <definition name="laptopModelNew.page" extends="body.definition">
+        <put-attribute name="title" value="Báo cáo Model mới" />
+        <put-attribute name="body" value="/WEB-INF/jsp/laptop/laptopModelNew.jsp" />
+    </definition>
+
+    <definition name="laptopReport.page" extends="body.definition">
+        <put-attribute name="title" value="Báo cáo laptop" />
+        <put-attribute name="body" value="/WEB-INF/jsp/laptop/laptopReport.jsp" />
+    </definition>
+
+    <definition name="laptopSegmentation.page" extends="body.definition">
+        <put-attribute name="title" value="Tra cứu laptop theo phân khúc" />
+        <put-attribute name="body" value="/WEB-INF/jsp/laptop/laptopSegmentation.jsp" />
+    </definition>
+
+    <definition name="laptopPriceDifferentLevels.page" extends="body.definition">
+        <put-attribute name="title" value="Tra cứu chênh lệch tỉ giá" />
+        <put-attribute name="body" value="/WEB-INF/jsp/laptop/laptopPriceDifferentLevels.jsp" />
+    </definition>
+
+    <definition name="laptopPriceDifferentLevelPopUp.page" extends="popup.definition">
+        <put-attribute name="title" value="Chi tiết chênh lệch tỉ giá" />
+        <put-attribute name="body" value="/WEB-INF/jsp/laptop/laptopPriceDifferentLevelPopUp.jsp" />
+    </definition>
+<!--end laptop-->
+    <!--] -->
+
+</tiles-definitions>

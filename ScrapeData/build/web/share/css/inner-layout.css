@@ -1,0 +1,158 @@
+@charset "utf-8";
+
+td {
+    vertical-align: top;
+}
+
+.vt-dijit-dialog {
+
+}
+
+#vt-loading-background {
+    margin:0px;
+    padding:0px;
+
+    background: url( ../images/loading/loading_bg.gif ) 0% 0%;
+    position:absolute;
+
+    width:321px;
+    height:55px;
+
+    top:-321px;
+    left:-55px;
+}
+
+#vt-loading-icon {
+    margin:0px;
+    padding:0px;
+
+    background: url( ../images/loading/loading.gif ) 0% 0%;
+    position:relative;
+
+    width:20px;
+    height:20px;
+
+    top:17px;
+    left:150px;
+}
+
+/******************* utils *******************/
+.display-none {
+    display: none;
+}
+
+.visible-none {
+    visibility: hidden;
+}
+
+.no-border {
+    border-width:0;
+}
+
+.no-space {
+    margin: 0px;
+    padding:0px;
+}
+
+.no-margin {
+    margin: 0px;
+}
+
+.no-padding {
+    padding:0px;
+}
+
+.text-title {
+    color:#15428B;
+    font-family:tahoma,arial,verdana,sans-serif;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.text-normal {
+    color:#222;
+    font-family: helvetica,arial,verdana,sans-serif;
+    font-size: 11px;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:normal;
+}
+
+.float-left {
+    float:left;
+}
+
+.float-right {
+    float:right;
+}
+
+.clear-left {
+    clear:left;
+}
+
+.clear-right {
+    clear:right;
+}
+
+.clear-both {
+    clear:both;
+}
+
+.cursor-pointer {
+    cursor:pointer;
+}
+
+.wFull {
+    width:100%;
+}
+
+.w50 {
+    width:50%;
+}
+
+.hFull {
+    height:100%;
+}
+
+.h50 {
+    height:50%;
+}
+.vtMultiSelect {
+    margin: 0 0.1em;
+    width:15em;
+}
+.vtSimpleSelectBox{
+    margin: 0 0.1em;
+    width:15em;
+}
+/******************* hacks *******************/
+.div-clear-both-ie-hack {
+
+}
+
+* html .div-clear-both-ie-hack {
+    height:20px;
+    margin-top:-20px;
+    clear:both;
+}
+.lang {
+    width:16px;
+    height:11px;
+
+    margin-top:7px;
+    margin-right:4px;
+}
+
+.icon {
+    margin-top:5px;
+    margin-right:12px;
+    padding-top:1px;
+    padding-left: 20px;
+
+    height:16px;
+    color:#f9f9f9;
+}
+
+* html .icon {
+    margin-top:22px;
+}

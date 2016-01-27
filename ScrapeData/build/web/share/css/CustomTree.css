@@ -1,0 +1,48 @@
+.normalIcon {
+    background-image: url('../images/icons/normal_status.png');
+    /* mail icons sprite image */
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    background-position: center center;
+}
+.slowIcon {
+    background-image: url('../images/icons/slow_status.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 18px;
+    height: 18px;
+}
+.errorIcon {
+    background-image: url('../images/icons/error_status.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 18px;
+    height: 18px;
+}
+.maintainIcon {
+    background-image: url('../images/icons/maintain_status.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 18px;
+    height: 18px;
+}
+.unknownIcon {
+    background-image: url('../images/icons/unknown_status.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 18px;
+    height: 18px;
+}
+.folder {
+    font-style:italic;
+    font-size: 18;
+    font-family:"Times New Roman", Times, serif;
+    color: red;
+}
+.file {
+    font-style:bold;
+    font-size:14;
+    font-family:"Arial", Times, serif;
+    color:blue;
+}

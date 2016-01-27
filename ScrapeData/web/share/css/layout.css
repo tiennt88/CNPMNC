@@ -1,0 +1,319 @@
+@charset "utf-8";
+
+
+body {
+    margin: 0px;
+    padding:0px;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:normal;
+    text-align:left;
+
+/*    background: url( ../images/layout/main_bg.jpg ) #4396ca repeat-x 0% 0%;*/
+    background: url( ../images/layout/new_3_3/body_bg.gif ) #446e9c repeat-x 0% -4px;
+    color:#000;
+}
+
+#vt-projectBar {
+/*    background: url( ../images/layout/new_3_3/applications-system.png ) no-repeat 15px 50%;*/
+    background: url( ../images/layout/new_3_3/120px-FPT_New_Logo.png ) no-repeat 15px 20%;
+    height:65px;
+}
+
+#vt-projectName {
+    margin-top:20px;
+    margin-left:400px;
+    font-family: myFont, Tahoma;
+    font-size:22px;
+    font-weight:bold;
+    color: #b4d7fa;
+}
+
+#vt-projectInfo {
+    margin-left:90px; /*same as vt-projectName*/
+    height:25px;
+}
+
+* html #vt-projectInfo {
+    margin-top: 4px;
+}
+
+#vt-projectVersion {
+    color:#fff;
+    font-size: 11px;
+    margin-right:10px;
+}
+
+#vt-slogan {
+    margin-left:60px;
+    padding-left: 1px;
+    font-family:verdana,tahoma,arial,sans-serif;
+    text-align: left;
+    font-size:11px;
+    color:#fff;
+}
+
+#vt-content-wrapper {
+    border-top:1px solid #fff;
+    background: #fff;
+    margin: 0px 70px 0px 70px;
+    padding: 10px 10px 10px 10px;
+    
+}
+
+#vt-content {
+    width:100%;
+}
+
+#vt-header-wrapper {
+    /*background: url( ../images/layout/new_3_1/bg_clouds.jpg ) repeat-x 0% 70%;*/
+    margin:0px 70px 0px 70px;
+}
+
+#vt-footer {
+    background: url( ../images/layout/new_3_3/body_bg.gif ) #446e9c repeat-x 0% -40px;
+    font-size: 11px;
+/*    height:63px;*/
+    height:32px;
+    color: #ececec;
+    padding-top:0px;
+        
+    margin:0px 70px 0px 70px;
+}
+
+#vt-copyRite {
+    text-align: left;
+    margin-top: 12px;
+    margin-left: 10px;
+}
+
+/*#vt-poweredByIcon {
+    margin-right: 10px;
+    width: 90px;
+    height: 63px;*/
+/*    background: url( ../images/layout/new_3_1/rdwf90x63.png ) no-repeat 100% 0%;*/
+/*}*/
+
+#vt-poweredByText {
+/*    margin-top: 40px;*/
+    margin-top: 12px;
+    margin-left: 56px;
+    color:#fff;
+}
+
+#vt-errorDisplayDiv {
+    color: #ff0000;
+    font-weight:bold;
+    font-size: 14px;
+}
+
+#vt-errorDisplayIframe {
+    display:none;
+}
+
+#vt-languageBar {
+    
+}
+
+#vt-lang-vn {
+    background:url( ../images/languages/vn.png ) no-repeat 0% 0%;
+}
+
+#vt-lang-en {
+    margin-right:10px;
+    background:url( ../images/languages/en.png ) no-repeat 0% 0%;
+}
+
+#vt-menuBar {
+    background: url( ../images/layout/new_3_1/tab_rbg.jpg ) repeat-x 0% 0%;
+/*    background: url( ../images/layout/new_3_1/nav.gif ) repeat-x 0% 0%;*/
+
+/*    border-bottom:1px solid #33799b;*/
+    padding-top:10px;
+    height:20px;
+}
+
+* html #vt-menuBar {
+    height:29px;
+}
+
+#vt-titleBar {
+    background: url( ../images/layout/new_3_3/joomla_template_bg.gif ) repeat-x 0% -24px;
+    
+    font-size:15px;
+    color:#000;
+
+    height:45px;
+}
+
+#vt-iconAction {
+    background:url(../images/layout/new_3_3/actionIcon.icon.gif) no-repeat 10px 5px; /*left top*/
+    height:45px; /*must be same as titleBar*/
+    padding-left: 50px; /*10 + 32 + 8*/
+}
+
+#vt-breadCumb, #vt-breadCumb a {
+    font-family: helvetica, sans-serif;
+    font-size: 11px;
+    color:#666;
+}
+
+#vt-breadCumb a:hover {
+    color:#e06713;
+}
+
+#vt-titleAction {
+    margin-top:5px;
+    padding-left: 0px;
+    font-family: Tahoma;
+    font-size:12px;
+    font-weight:bold;
+    color:#0068c0;
+}
+
+* html #vt-titleAction {
+    margin-top:6px;
+}
+
+#vt-home {
+    margin-top:10px;
+    padding-left: 26px;
+    background: url( ../images/layout/new_3_3/top_menu_home.gif ) no-repeat 0% 0%;
+
+
+}
+#vt-home:hover {
+    color:#e06713;
+
+}
+
+#vt-profile {
+    margin-top:10px;
+    padding-left: 21px;
+    background: url( ../images/layout/new_3_3/top_menu_user.gif ) no-repeat 0% 0%;
+}
+#vt-profile:hover {
+    color:#e06713;
+}
+
+#vt-logout {
+    margin-top:10px;
+    padding-left: 25px;
+    margin-right:10px;
+    background: url( ../images/layout/new_3_3/top_menu_logout.gif ) no-repeat 0% 0%;
+}
+
+#vt-logout:hover {
+    color:#e06713;
+}
+
+/******************* utils *******************/
+.no-space1 {
+    margin: 0px;
+    padding:0px;
+}
+
+.no-margin {
+    margin: 0px;
+}
+
+.no-padding {
+    padding:0px;
+}
+
+.text-title {
+    color:#15428B;
+    font-family:tahoma,arial,verdana,sans-serif;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.text-normal {
+    color:#222;
+    font-family: helvetica,arial,verdana,sans-serif;
+    font-size: 11px;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:normal;
+}
+
+.float-left {
+    float:left;
+}
+
+.float-right {
+    float:right;
+}
+
+.no-float {
+    clear:both;
+}
+
+.cursor-pointer {
+    cursor:pointer;
+}
+
+.vt-lang {
+    width:16px;
+    height:11px;
+
+    margin-top:2px;
+    margin-right:4px;
+}
+
+.vt-icon {
+    font-family: helvetica, sans-serif;
+    
+    margin-top:5px;
+    margin-right:15px;
+
+    padding-top:2px;
+
+    height:16px;
+    font-size:11px;
+    color:#666;
+}
+
+.global-error {
+    color: #E31B1D;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+/*VT ToolTip*/
+.informer-icon{
+    width:18px;
+    height:18px;
+}
+.informer-icon-info{
+    background: url(../images/icons/informer-sprite.gif) no-repeat scroll 0 -38px transparent;
+}
+.informer-icon-warning{
+    background: url(../images/icons/informer-sprite.gif) no-repeat scroll 0 -20px transparent;
+}
+.informer-icon-error{
+    background: url(../images/icons/informer-sprite.gif) no-repeat scroll 0 -74px transparent;
+}
+.x-region{
+    background-color: #A1D072;
+    padding: 5px 10px;
+}
+.vtTooltip{
+    position: absolute;
+    -moz-border-radius: 3px 3px 3px 3px;
+    background: url("images/popupMenuBg.gif") repeat-x scroll left bottom #FFFFFF;
+    border: 1px solid #7EABCD;
+    padding: 0.45em;
+}
+.vtTooltipContents{
+    font-size: 13px;
+    white-space: nowrap;
+}
+/*end VT ToolTip*/
+
+
+img{
+    border: medium none;
+}

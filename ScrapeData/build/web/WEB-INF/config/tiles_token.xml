@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://struts.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition extends="content.definition" name="token.page">
+        <put-attribute name="body" value="/WEB-INF/jsp/pages/layout/token.jsp"/>
+    </definition>
+</tiles-definitions>

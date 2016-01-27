@@ -1,0 +1,948 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.multipart.maxSize" value="45728640"/>
+    <package name="default" extends="struts-default,json-default">
+        <result-types>
+            <result-type class="org.apache.struts2.views.tiles.TilesResult" default="false" name="tiles"/>
+            <result-type class="org.apache.struts2.json.JSONResult" default="false" name="json"/>
+        </result-types>
+
+        <interceptors>
+            <interceptor class="com.viettel.framework.interceptor.HibernateConnectInterceptor" name="hibernateConnectInterceptor"/>
+            <interceptor-stack name="wfDefaultStack">
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="multiselect"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+
+            <interceptor-stack name="rdwfInterceptorStack">
+                <interceptor-ref name="wfDefaultStack"/>
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="tokenSession">
+                    <param name="excludeMethods">*</param>
+                </interceptor-ref>
+            </interceptor-stack>
+
+            <!--[ requestTokenRdwfInterceptorStack-->
+            <interceptor-stack name="requestTokenRdwfInterceptorStack">
+                <interceptor-ref name="rdwfInterceptorStack"/>
+                <interceptor-ref name="tokenSession">
+                    <param name="excludeMethods">*</param>
+                </interceptor-ref>
+            </interceptor-stack>
+            <!--] requestTokenRdwfInterceptorStack-->
+
+            <interceptor-stack name="fileUploadStack">
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="wfDefaultStack"/>
+            </interceptor-stack>
+            
+        </interceptors>
+        <default-interceptor-ref name="rdwfInterceptorStack"/>
+        <default-action-ref name="Whistle"/>
+        
+        <global-results>
+            <result name="error" type="tiles">
+                loginError.page
+            </result>
+            <result name="Exception" type="tiles">
+                loginError.page
+            </result>
+            <result name="sessionTimeout">
+                /WEB-INF/jsp/pages/layout/sessionTimeout.jsp
+            </result>
+            <result name="requestOverhead">
+                /WEB-INF/jsp/pages/layout/requestOverhead.jsp
+            </result>
+            <result name="invalid.token">
+                share/error.jsp?errorCode=InvalidToken
+            </result>
+        </global-results>
+
+        <action name="Index" class="com.scrape.DAO.AuthenticateDAO" method="getIndexPage" >
+            <result name="indexSuccess" type="tiles">index.page</result>
+        </action>
+
+        <action name="login" class="com.scrape.DAO.AuthenticateDAO" method="login" >
+<!--            <result name="success" type="redirectAction">Index</result>-->
+            <result name="success" type="tiles">index.page</result>
+            <result name="error" type="tiles">login.page</result>
+        </action>
+        
+        <action name="logout" class="com.scrape.DAO.AuthenticateDAO" method="logout" >
+            <result name="success" type="tiles">login.page</result>
+        </action>
+        
+        <!-- ==============================  ********  ====================================== -->
+<!--        begin util-->
+        <action name="runScrapeData" class="com.scrape.DAO.util.ScrapeDataDAO" method="scrapeData" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="scrapeData" class="com.scrape.DAO.util.ScrapeDataDAO" method="prepare" >
+            <result name="success" type="tiles">scrapeData.page</result>
+        </action>
+
+        <action name="statisticData" class="com.scrape.DAO.util.StatisticDataDAO" method="prepare" >
+            <result name="success" type="tiles">statisticData.page</result>
+        </action>
+
+        <action name="statisticDataSearch" class="com.scrape.DAO.util.StatisticDataDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="webData" class="com.scrape.DAO.util.WebDataDAO" method="prepare" >
+            <result name="success" type="tiles">webData.page</result>
+        </action>
+
+        <action name="webDataSearch" class="com.scrape.DAO.util.WebDataDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="webDataUpdate" class="com.scrape.DAO.util.WebDataDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="webDataDelete" class="com.scrape.DAO.util.WebDataDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="webDataInsert" class="com.scrape.DAO.util.WebDataDAO" method="onInsert" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="webDataActive" class="com.scrape.DAO.util.WebDataDAO" method="onActive" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        
+        <action name="config" class="com.scrape.DAO.util.ConfigDAO" method="prepare" >
+            <result name="success" type="tiles">config.page</result>
+        </action>
+
+        <action name="configSearch" class="com.scrape.DAO.util.ConfigDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="configUpdate" class="com.scrape.DAO.util.ConfigDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="configDelete" class="com.scrape.DAO.util.ConfigDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="configInsert" class="com.scrape.DAO.util.ConfigDAO" method="onInsert" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="configActive" class="com.scrape.DAO.util.ConfigDAO" method="onActive" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="pattern" class="com.scrape.DAO.util.PatternDAO" method="prepare" >
+            <result name="success" type="tiles">pattern.page</result>
+        </action>
+
+        <action name="patternSearch" class="com.scrape.DAO.util.PatternDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="patternUpdate" class="com.scrape.DAO.util.PatternDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="patternDelete" class="com.scrape.DAO.util.PatternDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="patternInsert" class="com.scrape.DAO.util.PatternDAO" method="onInsert" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="patternActive" class="com.scrape.DAO.util.PatternDAO" method="onActive" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+<!--        end util-->
+
+<!--begin admin-->
+        <action name="user" class="com.scrape.DAO.admin.UserDAO" method="prepare" >
+            <result name="success" type="tiles">user.page</result>
+        </action>
+
+        <action name="userPopup" class="com.scrape.DAO.admin.UserDAO" method="preparePopup" >
+            <result name="success" type="tiles">userPopup.page</result>
+        </action>
+
+        <action name="userSearch" class="com.scrape.DAO.admin.UserDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="userUpdate" class="com.scrape.DAO.admin.UserDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="userDelete" class="com.scrape.DAO.admin.UserDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="userInsert" class="com.scrape.DAO.admin.UserDAO" method="onInsert" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="userActive" class="com.scrape.DAO.admin.UserDAO" method="onActive" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="userSystemPassword" class="com.scrape.DAO.admin.UserDAO" method="onSystemPassWord" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        
+        <action name="role" class="com.scrape.DAO.admin.RoleDAO" method="prepare" >
+            <result name="success" type="tiles">role.page</result>
+        </action>
+
+        <action name="roleSearch" class="com.scrape.DAO.admin.RoleDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="roleUpdate" class="com.scrape.DAO.admin.RoleDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="roleDelete" class="com.scrape.DAO.admin.RoleDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="roleInsert" class="com.scrape.DAO.admin.RoleDAO" method="onInsert" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="roleActive" class="com.scrape.DAO.admin.RoleDAO" method="onActive" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        
+        <action name="userRole" class="com.scrape.DAO.admin.UserRoleDAO" method="prepare" >
+            <result name="success" type="tiles">roleUserPopUp.page</result>
+        </action>
+
+        <action name="userRoleSearch" class="com.scrape.DAO.admin.UserRoleDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="userRoleInsert" class="com.scrape.DAO.admin.UserRoleDAO" method="onInsert" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        
+        <action name="userRoleUpdate" class="com.scrape.DAO.admin.UserRoleDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="userRoleDelete" class="com.scrape.DAO.admin.UserRoleDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="userRoleActive" class="com.scrape.DAO.admin.UserRoleDAO" method="onActive" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        
+        <action name="roleMenu" class="com.scrape.DAO.admin.RoleMenuDAO" method="prepare" >
+            <result name="success" type="tiles">roleMenuPopUp.page</result>
+        </action>
+
+        <action name="roleMenuSearch" class="com.scrape.DAO.admin.RoleMenuDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="roleMenuInsert" class="com.scrape.DAO.admin.RoleMenuDAO" method="onInsert" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="roleMenuUpdate" class="com.scrape.DAO.admin.RoleMenuDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="roleMenuDelete" class="com.scrape.DAO.admin.RoleMenuDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="roleMenuActive" class="com.scrape.DAO.admin.RoleMenuDAO" method="onActive" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="menu" class="com.scrape.DAO.admin.MenuDAO" method="prepare" >
+            <result name="success" type="tiles">menu.page</result>
+        </action>
+
+        <action name="menuSearch" class="com.scrape.DAO.admin.MenuDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="menuUpdate" class="com.scrape.DAO.admin.MenuDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="menuDelete" class="com.scrape.DAO.admin.MenuDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="menuInsert" class="com.scrape.DAO.admin.MenuDAO" method="onInsert" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="menuActive" class="com.scrape.DAO.admin.MenuDAO" method="onActive" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+<!--end admin-->
+
+<!--        begin mobile-->
+        <action name="mobileRoot" class="com.scrape.DAO.mobile.MobileRootDAO" method="prepare" >
+            <result name="success" type="tiles">mobileRoot.page</result>
+        </action>
+
+        <action name="mobileRootSearch" class="com.scrape.DAO.mobile.MobileRootDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobileRootUpdate" class="com.scrape.DAO.mobile.MobileRootDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobileRootDelete" class="com.scrape.DAO.mobile.MobileRootDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobileRootMatch" class="com.scrape.DAO.mobile.MobileRootDAO" method="onMatch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+<!--        mobileData-->
+        <action name="mobileData" class="com.scrape.DAO.mobile.MobileDataDAO" method="prepare" >
+            <result name="success" type="tiles">mobileData.page</result>
+        </action>
+
+        <action name="mobileDataSearch" class="com.scrape.DAO.mobile.MobileDataDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobileDataUpdate" class="com.scrape.DAO.mobile.MobileDataDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobileDataDelete" class="com.scrape.DAO.mobile.MobileDataDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobileApprove" class="com.scrape.DAO.mobile.MobileDataDAO" method="onApprove" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobileAnalysis" class="com.scrape.DAO.mobile.MobileDataDAO" method="mobileAnalysis" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobileDataExport" class="com.scrape.DAO.mobile.MobileDataDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="mobileCompare" class="com.scrape.DAO.mobile.MobileCompareDAO" method="prepare" >
+            <result name="success" type="tiles">mobileCompare.page</result>
+        </action>
+
+        <action name="mobileComparePopUp" class="com.scrape.DAO.mobile.MobileCompareDAO" method="prepare" >
+            <result name="success" type="tiles">mobileComparePopUp.page</result>
+        </action>
+
+        <action name="mobileCompareBeforeSearch" class="com.scrape.DAO.mobile.MobileCompareDAO" method="beforeSearch" >
+            <interceptor-ref name="json">
+                <param name="contentType">application/JSON</param>
+                <param name="excludeNullProperties">true</param>
+            </interceptor-ref>
+            <result type="json" name="success"/>
+        </action>
+
+        <action name="mobileCompareSearch" class="com.scrape.DAO.mobile.MobileCompareDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobileModelCompare" class="com.scrape.DAO.mobile.MobileModelCompareDAO" method="prepare" >
+            <result name="success" type="tiles">mobileModelCompare.page</result>
+        </action>
+        
+        <action name="mobileModelCompareSearch" class="com.scrape.DAO.mobile.MobileModelCompareDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobileModelCompareExport" class="com.scrape.DAO.mobile.MobileModelCompareDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="mobilePriceHistory" class="com.scrape.DAO.mobile.MobilePriceHistoryDAO" method="prepare" >
+            <result name="success" type="tiles">mobilePriceHistory.page</result>
+        </action>
+
+        <action name="mobilePriceHistorySearch" class="com.scrape.DAO.mobile.MobilePriceHistoryDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobilePriceHistoryExport" class="com.scrape.DAO.mobile.MobilePriceHistoryDAO" method="priceHistory" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="mobileModelNew" class="com.scrape.DAO.mobile.MobileModelNewDAO" method="prepare" >
+            <result name="success" type="tiles">mobileModelNew.page</result>
+        </action>
+
+        <action name="mobileModelNewSearch" class="com.scrape.DAO.mobile.MobileModelNewDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobileModelNewExport" class="com.scrape.DAO.mobile.MobileModelNewDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="mobileReport" class="com.scrape.DAO.mobile.MobileReportDAO" method="prepare" >
+            <result name="success" type="tiles">mobileReport.page</result>
+        </action>
+
+        <action name="mobileReportExport" class="com.scrape.DAO.mobile.MobileReportDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+        <action name="mobileReportExportSame" class="com.scrape.DAO.mobile.MobileReportDAO" method="exportExcelSame" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="mobileSegmentation" class="com.scrape.DAO.mobile.MobileSegmentationDAO" method="prepare" >
+            <result name="success" type="tiles">mobileSegmentation.page</result>
+        </action>
+
+        <action name="mobileSegmentationSearch" class="com.scrape.DAO.mobile.MobileSegmentationDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobilePriceDifferentLevels" class="com.scrape.DAO.mobile.MobilePriceDifferentLevelsDAO" method="prepare" >
+            <result name="success" type="tiles">mobilePriceDifferentLevels.page</result>
+        </action>
+
+        <action name="mobilePriceDifferentLevelsSearch" class="com.scrape.DAO.mobile.MobilePriceDifferentLevelsDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        
+        <action name="mobilePriceDifferentLevelPopUp" class="com.scrape.DAO.mobile.MobilePriceDifferentLevelsDAO" method="preparePopUp" >
+            <result name="success" type="tiles">mobilePriceDifferentLevelPopUp.page</result>
+        </action>
+        
+        <action name="mobilePriceDifferentLevelPopUpSearch" class="com.scrape.DAO.mobile.MobilePriceDifferentLevelsDAO" method="onSearchPopUp" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="mobilePriceDifferentLevelsExport" class="com.scrape.DAO.mobile.MobilePriceDifferentLevelsDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+<!--        end mobile-->
+<!--begin tablet-->
+        <action name="tabletRoot" class="com.scrape.DAO.tablet.TabletRootDAO" method="prepare" >
+            <result name="success" type="tiles">tabletRoot.page</result>
+        </action>
+
+        <action name="tabletRootSearch" class="com.scrape.DAO.tablet.TabletRootDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletRootUpdate" class="com.scrape.DAO.tablet.TabletRootDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletRootDelete" class="com.scrape.DAO.tablet.TabletRootDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletRootMatch" class="com.scrape.DAO.tablet.TabletRootDAO" method="onMatch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+<!--        tabletData-->
+        <action name="tabletData" class="com.scrape.DAO.tablet.TabletDataDAO" method="prepare" >
+            <result name="success" type="tiles">tabletData.page</result>
+        </action>
+
+        <action name="tabletDataSearch" class="com.scrape.DAO.tablet.TabletDataDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletDataUpdate" class="com.scrape.DAO.tablet.TabletDataDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletDataDelete" class="com.scrape.DAO.tablet.TabletDataDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        <action name="tabletApprove" class="com.scrape.DAO.tablet.TabletDataDAO" method="onApprove" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletAnalysis" class="com.scrape.DAO.tablet.TabletDataDAO" method="tabletAnalysis" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletDataExport" class="com.scrape.DAO.tablet.TabletDataDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="tabletCompare" class="com.scrape.DAO.tablet.TabletCompareDAO" method="prepare" >
+            <result name="success" type="tiles">tabletCompare.page</result>
+        </action>
+
+        <action name="tabletComparePopUp" class="com.scrape.DAO.tablet.TabletCompareDAO" method="prepare" >
+            <result name="success" type="tiles">tabletComparePopUp.page</result>
+        </action>
+
+        <action name="tabletCompareBeforeSearch" class="com.scrape.DAO.tablet.TabletCompareDAO" method="beforeSearch" >
+            <interceptor-ref name="json">
+                <param name="contentType">application/JSON</param>
+                <param name="excludeNullProperties">true</param>
+            </interceptor-ref>
+            <result type="json" name="success"/>
+        </action>
+
+        <action name="tabletCompareSearch" class="com.scrape.DAO.tablet.TabletCompareDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletModelCompare" class="com.scrape.DAO.tablet.TabletModelCompareDAO" method="prepare" >
+            <result name="success" type="tiles">tabletModelCompare.page</result>
+        </action>
+
+        <action name="tabletModelCompareSearch" class="com.scrape.DAO.tablet.TabletModelCompareDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletModelCompareExport" class="com.scrape.DAO.tablet.TabletModelCompareDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="tabletPriceHistory" class="com.scrape.DAO.tablet.TabletPriceHistoryDAO" method="prepare" >
+            <result name="success" type="tiles">tabletPriceHistory.page</result>
+        </action>
+
+        <action name="tabletPriceHistorySearch" class="com.scrape.DAO.tablet.TabletPriceHistoryDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletPriceHistoryExport" class="com.scrape.DAO.tablet.TabletPriceHistoryDAO" method="priceHistory" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="tabletModelNew" class="com.scrape.DAO.tablet.TabletModelNewDAO" method="prepare" >
+            <result name="success" type="tiles">tabletModelNew.page</result>
+        </action>
+
+        <action name="tabletModelNewSearch" class="com.scrape.DAO.tablet.TabletModelNewDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletModelNewExport" class="com.scrape.DAO.tablet.TabletModelNewDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="tabletReport" class="com.scrape.DAO.tablet.TabletReportDAO" method="prepare" >
+            <result name="success" type="tiles">tabletReport.page</result>
+        </action>
+
+        <action name="tabletReportExport" class="com.scrape.DAO.tablet.TabletReportDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="tabletSegmentation" class="com.scrape.DAO.tablet.TabletSegmentationDAO" method="prepare" >
+            <result name="success" type="tiles">tabletSegmentation.page</result>
+        </action>
+
+        <action name="tabletSegmentationSearch" class="com.scrape.DAO.tablet.TabletSegmentationDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletPriceDifferentLevels" class="com.scrape.DAO.tablet.TabletPriceDifferentLevelsDAO" method="prepare" >
+            <result name="success" type="tiles">tabletPriceDifferentLevels.page</result>
+        </action>
+
+        <action name="tabletPriceDifferentLevelsSearch" class="com.scrape.DAO.tablet.TabletPriceDifferentLevelsDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletPriceDifferentLevelPopUp" class="com.scrape.DAO.tablet.TabletPriceDifferentLevelsDAO" method="preparePopUp" >
+            <result name="success" type="tiles">tabletPriceDifferentLevelPopUp.page</result>
+        </action>
+
+        <action name="tabletPriceDifferentLevelPopUpSearch" class="com.scrape.DAO.tablet.TabletPriceDifferentLevelsDAO" method="onSearchPopUp" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="tabletPriceDifferentLevelsExport" class="com.scrape.DAO.tablet.TabletPriceDifferentLevelsDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+<!--end tablet-->
+<!--begin laptop-->
+        <action name="laptopRoot" class="com.scrape.DAO.laptop.LaptopRootDAO" method="prepare" >
+            <result name="success" type="tiles">laptopRoot.page</result>
+        </action>
+
+        <action name="laptopRootSearch" class="com.scrape.DAO.laptop.LaptopRootDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopRootUpdate" class="com.scrape.DAO.laptop.LaptopRootDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopRootDelete" class="com.scrape.DAO.laptop.LaptopRootDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopRootMatch" class="com.scrape.DAO.laptop.LaptopRootDAO" method="onMatch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopData" class="com.scrape.DAO.laptop.LaptopDataDAO" method="prepare" >
+            <result name="success" type="tiles">laptopData.page</result>
+        </action>
+
+        <action name="laptopDataSearch" class="com.scrape.DAO.laptop.LaptopDataDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopDataUpdate" class="com.scrape.DAO.laptop.LaptopDataDAO" method="onUpdate" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopDataDelete" class="com.scrape.DAO.laptop.LaptopDataDAO" method="onDelete" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+
+        <action name="laptopApprove" class="com.scrape.DAO.laptop.LaptopDataDAO" method="onApprove" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+        
+        <action name="laptopAnalysis" class="com.scrape.DAO.laptop.LaptopDataDAO" method="laptopAnalysis" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopDataExport" class="com.scrape.DAO.laptop.LaptopDataDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="laptopCompare" class="com.scrape.DAO.laptop.LaptopCompareDAO" method="prepare" >
+            <result name="success" type="tiles">laptopCompare.page</result>
+        </action>
+
+        <action name="laptopComparePopUp" class="com.scrape.DAO.laptop.LaptopCompareDAO" method="prepare" >
+            <result name="success" type="tiles">laptopComparePopUp.page</result>
+        </action>
+
+        <action name="laptopCompareBeforeSearch" class="com.scrape.DAO.laptop.LaptopCompareDAO" method="beforeSearch" >
+            <interceptor-ref name="json">
+                <param name="contentType">application/JSON</param>
+                <param name="excludeNullProperties">true</param>
+            </interceptor-ref>
+            <result type="json" name="success"/>
+        </action>
+
+        <action name="laptopCompareSearch" class="com.scrape.DAO.laptop.LaptopCompareDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopModelCompare" class="com.scrape.DAO.laptop.LaptopModelCompareDAO" method="prepare" >
+            <result name="success" type="tiles">laptopModelCompare.page</result>
+        </action>
+
+        <action name="laptopModelCompareSearch" class="com.scrape.DAO.laptop.LaptopModelCompareDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopModelCompareExport" class="com.scrape.DAO.laptop.LaptopModelCompareDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="laptopPriceHistory" class="com.scrape.DAO.laptop.LaptopPriceHistoryDAO" method="prepare" >
+            <result name="success" type="tiles">laptopPriceHistory.page</result>
+        </action>
+
+        <action name="laptopPriceHistorySearch" class="com.scrape.DAO.laptop.LaptopPriceHistoryDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopPriceHistoryExport" class="com.scrape.DAO.laptop.LaptopPriceHistoryDAO" method="priceHistory" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="laptopModelNew" class="com.scrape.DAO.laptop.LaptopModelNewDAO" method="prepare" >
+            <result name="success" type="tiles">laptopModelNew.page</result>
+        </action>
+
+        <action name="laptopModelNewSearch" class="com.scrape.DAO.laptop.LaptopModelNewDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopModelNewExport" class="com.scrape.DAO.laptop.LaptopModelNewDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="laptopReport" class="com.scrape.DAO.laptop.LaptopReportDAO" method="prepare" >
+            <result name="success" type="tiles">laptopReport.page</result>
+        </action>
+
+        <action name="laptopReportExport" class="com.scrape.DAO.laptop.LaptopReportDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+
+        <action name="laptopSegmentation" class="com.scrape.DAO.laptop.LaptopSegmentationDAO" method="prepare" >
+            <result name="success" type="tiles">laptopSegmentation.page</result>
+        </action>
+
+        <action name="laptopSegmentationSearch" class="com.scrape.DAO.laptop.LaptopSegmentationDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopPriceDifferentLevels" class="com.scrape.DAO.laptop.LaptopPriceDifferentLevelsDAO" method="prepare" >
+            <result name="success" type="tiles">laptopPriceDifferentLevels.page</result>
+        </action>
+
+        <action name="laptopPriceDifferentLevelsSearch" class="com.scrape.DAO.laptop.LaptopPriceDifferentLevelsDAO" method="onSearch" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopPriceDifferentLevelPopUp" class="com.scrape.DAO.laptop.LaptopPriceDifferentLevelsDAO" method="preparePopUp" >
+            <result name="success" type="tiles">laptopPriceDifferentLevelPopUp.page</result>
+        </action>
+
+        <action name="laptopPriceDifferentLevelPopUpSearch" class="com.scrape.DAO.laptop.LaptopPriceDifferentLevelsDAO" method="onSearchPopUp" >
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+        </action>
+
+        <action name="laptopPriceDifferentLevelsExport" class="com.scrape.DAO.laptop.LaptopPriceDifferentLevelsDAO" method="exportExcel" >
+            <result name="success" type="tiles">download.page</result>
+        </action>
+<!--end laptop-->
+
+        <!-- ============================== COMMON ====================================== -->
+        
+        <action name="download" class="com.scrape.DAO.DownloadDAO" method="download">
+            <result type="stream" name="success">
+                <param name = "contentType">application/vnd.ms-excel</param>
+                <param name = "inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename=%{filename}</param>
+                <param name = "bufferSize">4096</param>
+            </result>
+        </action>
+
+        <action name="upload" class="com.scrape.DAO.UploadFileDAO" method="prepare" >
+            <result name="success" type="tiles">upload.page</result>
+        </action>
+
+        <action name="onUpload" class="com.scrape.DAO.UploadFileDAO" method="onUpload">
+            <interceptor-ref name="fileUploadStack"/>
+            <result type="json" name="jsonDataGrid">
+                <param name="root">jsonDataGrid</param>
+            </result>
+
+        </action>
+
+<!--        mobile-->
+        <action name="checkboxlist" class="com.scrape.mobile.DAO.CheckBox" method="execute" >
+            <result name="success">mindex.page</result>
+        </action>
+        
+    </package>
+    <!--        mobile-->
+<!--    <include file="mobile.xml" />-->
+</struts>
+
+

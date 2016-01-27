@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Java\jdk1.6.0_23\bin\java.exe" -Xms128m -Xmx512m -jar "ScrapeSelenium.jar"
